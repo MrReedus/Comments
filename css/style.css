@@ -24,6 +24,10 @@ body {
   margin-bottom: 40px;
 }
 
+.article > p {
+  margin-bottom: 30px;
+}
+
 .comments h2 {
   max-width: 200px;
   margin: 0 auto;
@@ -36,7 +40,7 @@ body {
   border-radius: 20px;
   padding: 25px;
   margin-bottom: 100px;
-  background-color: #7a858b;
+  background-color: #77979ca6;
   -webkit-box-shadow: 0px 0px 17px 19px rgba(34, 60, 80, 0.2);
   -moz-box-shadow: 0px 0px 17px 19px rgba(34, 60, 80, 0.2);
   box-shadow: 0px 0px 17px 19px rgba(34, 60, 80, 0.2);
@@ -81,6 +85,7 @@ body {
   border-radius: 5px;
   border: none;
   outline: none;
+  padding: 5px 10px;
 }
 
 .comments__popup {
@@ -102,6 +107,7 @@ body {
 input {
   outline: none;
   border: none;
+  padding: 10px;
 }
 .input-name {
   border-radius: 5px;
@@ -131,40 +137,86 @@ input {
   background-color: #58a838;
 }
 
-/* .comments__list > div {
-  background-color: #a4e28b48;
-} */
 .comment-date {
   text-align: right;
-  color: #a5a4a4ee;
+  color: rgba(59, 58, 58, 0.933);
 }
 
 .icon-delete {
   margin-right: 10px;
   cursor: pointer;
+  transition: 0.2s ease;
 }
 
+.icon-delete:hover path,
+.icon-delete:focus path,
+.icon-favorite:hover path,
+.icon-favorite:focus path {
+  transition: 0.2s ease;
+  fill: red;
+}
+.icon-delete:active path,
+.icon-favorite:active path {
+  transition: 0.2s ease;
+  fill: rgb(110, 6, 6);
+}
 .icon-favorite {
   cursor: pointer;
+}
+
+.icon-favorite.liked path {
+  fill: #cf2121;
 }
 
 .comments__list {
   width: 600px;
   margin: 0 auto;
-
   padding: 10px 15px;
 }
 
 .comment-name {
-  background-color: #5d858ba6;
+  background-color: #77979ca6;
   display: inline-block;
   padding: 4px;
   margin-bottom: 10px;
+  color: #000;
 }
 
 .comment-text {
   background-color: #37a75986;
   margin-bottom: 10px;
-  max-width: 70%;
+  width: 100%;
   padding: 5px;
+  display: flex;
+  color: #000;
+}
+
+.comment-block {
+  margin: 0 auto;
+  background-color: #d4d4d4;
+  width: 500px;
+  height: auto;
+  /* border: 1px solid rgb(0, 0, 0); */
+  border-radius: 20px;
+  margin-bottom: 40px;
+  padding: 15px 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.comment-block::before {
+  position: absolute;
+  content: "";
+  width: 0px;
+  height: 0px;
+  border-style: solid;
+  border-width: 50px 50px 0 0;
+  border-color: #d4d4d4 transparent transparent transparent;
+  transform: rotate(315deg);
+  left: -16px;
+  top: 40px;
+}
+
+span {
+  color: black;
 }
