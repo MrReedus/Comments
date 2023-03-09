@@ -16,30 +16,36 @@ submitBtn.addEventListener("click", (event) => {
       favorite: "icons/favorite-icon.svg",
     },
   };
+
   commentName.value = "";
   commentText.value = "";
   comments.push(comment);
+
   renderComment();
 
-  console.log(comment.icons.delete);
+  console.dir(comments);
 });
 
 function renderComment() {
   let commentList = document.querySelector(".comments__list");
 
+  let commentBlock = document.createElement("div");
+  commentBlock.className = "comment-block";
+  commentList.append(commentBlock);
+
   let commentMessage = "";
 
-  comments.forEach((item) => {
-    commentMessage += `<p class="comment-date"><em>${timeConverter(item.time)}</em></p>`;
-    commentMessage += `<p class="comment-name">${item.name}</p>`;
-    commentMessage += `<p class="comment-text">${item.text}</p>`;
-    commentMessage += `<img src="${item.icons.delete}" class="icon-delete"></img>`;
-    commentMessage += `<img src="${item.icons.favorite}" class="icon-favorite"></img>`;
-  });
+  let item = comments[comments.length - 1]; // Здесь Получаем последний комментарий.
+  commentMessage += `<p class="comment-date"><em>${timeConverter(item.time)}</em></p>`;
+  commentMessage += `<p class="comment-name">${item.name}</p>`;
+  commentMessage += `<p class="comment-text">${item.text}</p>`;
+  commentMessage += `<img src="${item.icons.delete}" class="icon-delete"></img>`;
+  commentMessage += `<img src="${item.icons.favorite}" class="icon-favorite"></img>`;
 
-  commentList.innerHTML = commentMessage;
+  commentBlock.innerHTML = commentMessage;
 }
 
+// Эта функция приобразовывает дату к читаемому виду
 function timeConverter(UNIX_timestamp) {
   let a = new Date(UNIX_timestamp * 1000);
   let months = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн", "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"];
@@ -53,7 +59,10 @@ function timeConverter(UNIX_timestamp) {
   return time;
 }
 
-//
+//**** Удаление коментария*/
+
+function removeComment() {}
+// //
 
 // const popupButton = document.querySelector(".popup-btn");
 // const popup = document.querySelector(".comments__popup");
