@@ -8,6 +8,7 @@ submitBtn.addEventListener("click", (event) => {
   const inputs = document.querySelectorAll(".input");
 
   event.preventDefault();
+
   //**валидация */
 
   inputs.forEach((input) => {
@@ -23,7 +24,6 @@ submitBtn.addEventListener("click", (event) => {
   });
 
   if (commentName.value === "") {
-    commentName.classList.add("error");
     validationComment(commentName);
     return;
   } else {
@@ -187,24 +187,4 @@ function deleteComments(deleteButton) {
   console.log(comments);
 }
 
-const popupButton = document.querySelector(".popup-btn");
-const popup = document.querySelector(".comments__popup");
-
-const text = document.querySelector(".input-text");
-
-// popupButton.addEventListener("click", () => {
-//   // popup.classList.toggle("hidden");
-//   // popupButton.classList.add("hidden");
-// });
-
 //*
-
-// commentName.addEventListener("input", () => {
-//
-//   if (valueLength < 3) {
-//     commentName.setCustomValidity("Введите имя");
-//   } else {
-//     commentName.setCustomValidity("");
-//   }
-//   commentName.reportValidity();
-// });

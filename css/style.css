@@ -110,7 +110,7 @@ input {
   padding: 10px;
 }
 
-input.error {
+.input.error {
   border: 2px solid red;
 }
 
