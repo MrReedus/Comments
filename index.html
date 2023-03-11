@@ -48,22 +48,18 @@
       <div class="comments">
         <h2>Комментарии</h2>
         <div class="comments__list"></div>
-        <button class="popup-btn">Оставьте комментарий</button>
+        <!-- <button class="popup-btn">Оставьте комментарий</button> -->
 
-        <div class="comments__popup hidden">
-          <form action="">
-            <div class="flex-wrapper popup__up-block .">
-              <label class="label" for="">
+        <div class="comments__popup">
+          <form action="" class="form">
+            <div class="flex-wrapper popup__up-block">
+              <label class="label label-name" for="">
                 Ваше имя
-                <input class="input-name" type="text" />
-              </label>
-              <label class="label" for="">
-                Дата
-                <input class="input-date" type="text" disabled />
+                <input class="input-name" type="text"/>
               </label>
             </div>
             <div class="popup__down-block">
-              <textarea class="textarea" name="" id="" placeholder="ваш коментарий..."></textarea>
+              <input type="textarea" class="input textarea" name="" id="" placeholder="Ваш коментарий..."></input>
               <button class="submit-btn">Прокоментировать</button>
             </div>
           </form>

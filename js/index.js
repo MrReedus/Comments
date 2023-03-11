@@ -2,10 +2,41 @@ let comments = [];
 const submitBtn = document.querySelector(".submit-btn");
 
 submitBtn.addEventListener("click", (event) => {
-  event.preventDefault();
   const commentName = document.querySelector(".input-name");
   const commentDate = document.querySelector(".input-date");
   const commentText = document.querySelector(".textarea");
+  const inputs = document.querySelectorAll(".input");
+
+  event.preventDefault();
+  //**валидация */
+
+  inputs.forEach((input) => {
+    if (input.value === "") {
+      validationComment(input);
+    } else {
+      input.classList.remove("error");
+      const errorMessage = input.nextElementSibling;
+      if (errorMessage && errorMessage.classList.contains("error-message")) {
+        errorMessage.remove();
+      }
+    }
+  });
+
+  if (commentName.value === "") {
+    commentName.classList.add("error");
+    validationComment(commentName);
+    return;
+  } else {
+    commentName.classList.remove("error");
+    const errorMessage = commentName.nextElementSibling;
+    if (errorMessage && errorMessage.classList.contains("error-message")) {
+      errorMessage.remove();
+    }
+  }
+
+  if (commentName.value === "" || commentText.value === "") {
+    return;
+  }
 
   let comment = {
     name: commentName.value,
@@ -13,17 +44,27 @@ submitBtn.addEventListener("click", (event) => {
     time: Math.floor(Date.now() / 1000),
   };
 
-  commentName.value = "";
-  commentText.value = "";
   comments.push(comment);
   renderComment();
-  popupButton.classList.remove("hidden");
-  popup.classList.add("hidden");
+  commentName.value = "";
+  commentText.value = "";
 });
+
+function validationComment(outer) {
+  outer.classList.add("error");
+  const errorMessage = outer.nextElementSibling;
+  if (!errorMessage || !errorMessage.classList.contains("error-message")) {
+    const newErrorMessage = document.createElement("span");
+    newErrorMessage.innerText = "Поле обязательно для заполнения";
+    newErrorMessage.classList.add("error-message");
+    outer.insertAdjacentElement("afterend", newErrorMessage);
+  }
+}
 
 function renderComment() {
   let commentList = document.querySelector(".comments__list");
   let out = "";
+
   comments.forEach(function (item) {
     out += `
         <div class="comment-block">
@@ -51,13 +92,14 @@ function renderComment() {
   commentList.innerHTML = out;
 
   favoriteIcons = document.querySelectorAll(".icon-favorite");
-  // const likeCount = document.querySelector(".like-count");
-  // let isLiked = false;
-  // let count = 0;
 
   favoriteIcons.forEach((icon) => {
+    // const likeCount = document.querySelector(".like-count");
+    // let isLiked = false;
+    // let count = 0;
     icon.addEventListener("click", () => {
       icon.classList.toggle("liked");
+
       // if (!isLiked) {
       //   icon.classList.add("liked");
       //   count++;
@@ -145,14 +187,24 @@ function deleteComments(deleteButton) {
   console.log(comments);
 }
 
-//* like
-
 const popupButton = document.querySelector(".popup-btn");
 const popup = document.querySelector(".comments__popup");
 
 const text = document.querySelector(".input-text");
 
-popupButton.addEventListener("click", () => {
-  popup.classList.toggle("hidden");
-  popupButton.classList.add("hidden");
-});
+// popupButton.addEventListener("click", () => {
+//   // popup.classList.toggle("hidden");
+//   // popupButton.classList.add("hidden");
+// });
+
+//*
+
+// commentName.addEventListener("input", () => {
+//
+//   if (valueLength < 3) {
+//     commentName.setCustomValidity("Введите имя");
+//   } else {
+//     commentName.setCustomValidity("");
+//   }
+//   commentName.reportValidity();
+// });
