@@ -59,9 +59,11 @@ body {
   font-weight: 700;
   border-radius: 5px;
 }
+
 .popup-btn:hover {
   background-color: #a4e28b;
 }
+
 .popup-btn:active {
   background-color: #58a838;
 }
@@ -71,6 +73,7 @@ body {
   justify-content: space-between;
   margin-bottom: 10px;
 }
+
 .popup__down-block {
   display: flex;
   flex-direction: column;
@@ -188,6 +191,7 @@ input {
   padding: 4px;
   margin-bottom: 10px;
   color: #000;
+  border: 1px solid rgb(82, 88, 99);
 }
 
 .comment-text {

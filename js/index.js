@@ -1,19 +1,28 @@
 let comments = [];
 const submitBtn = document.querySelector(".submit-btn");
+const form = document.querySelector(".form");
+const commentText = document.querySelector(".textarea");
 
 submitBtn.addEventListener("click", (event) => {
+  event.preventDefault();
+  createFullComment();
+});
+
+commentText.addEventListener("keypress", (evt) => {
+  console.log(evt);
+  if (evt.key === "Enter") {
+    createFullComment();
+  }
+});
+
+function createFullComment() {
   const commentName = document.querySelector(".input-name");
   const commentDate = document.querySelector(".input-date");
   const commentText = document.querySelector(".textarea");
   const inputs = document.querySelectorAll(".input");
-
-  event.preventDefault();
-
-  //**валидация */
-
   inputs.forEach((input) => {
     if (input.value === "") {
-      validationComment(input);
+      validationError(input);
     } else {
       input.classList.remove("error");
       const errorMessage = input.nextElementSibling;
@@ -22,17 +31,6 @@ submitBtn.addEventListener("click", (event) => {
       }
     }
   });
-
-  if (commentName.value === "") {
-    validationComment(commentName);
-    return;
-  } else {
-    commentName.classList.remove("error");
-    const errorMessage = commentName.nextElementSibling;
-    if (errorMessage && errorMessage.classList.contains("error-message")) {
-      errorMessage.remove();
-    }
-  }
 
   if (commentName.value === "" || commentText.value === "") {
     return;
@@ -45,12 +43,12 @@ submitBtn.addEventListener("click", (event) => {
   };
 
   comments.push(comment);
-  renderComment();
+  renderCommentText();
   commentName.value = "";
   commentText.value = "";
-});
+}
 
-function validationComment(outer) {
+function validationError(outer) {
   outer.classList.add("error");
   const errorMessage = outer.nextElementSibling;
   if (!errorMessage || !errorMessage.classList.contains("error-message")) {
@@ -61,7 +59,7 @@ function validationComment(outer) {
   }
 }
 
-function renderComment() {
+function renderCommentText() {
   let commentList = document.querySelector(".comments__list");
   let out = "";
 
@@ -118,42 +116,6 @@ function renderComment() {
   });
 }
 
-//! Второй вариант рендера коментария
-
-// function renderComment() {
-//   let commentList = document.querySelector(".comments__list");
-
-//   let commentBlock = document.createElement("div");
-//   commentBlock.className = "comment-block";
-//   commentList.append(commentBlock);
-
-//   let commentMessage = "";
-
-//   let item = comments[comments.length - 1]; // Здесь Получаем последний комментарий.
-//   commentMessage += `<p class="comment-date"><em>${timeConverter(item.time)}</em></p>`;
-//   commentMessage += `<p class="comment-name">${item.name}</p>`;
-//   commentMessage += `<p class="comment-text">${item.text}</p>`;
-//   commentMessage += `<svg class="icon-delete" data-time=${item.time} width="20px" height="20px" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" fill="#000000" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#131313;">
-//   <g id="SVGRepo_bgCarrier" stroke-width="0"/>
-//   <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
-//   <g id="SVGRepo_iconCarrier">
-//   <path fill="#000000" d="M160 256H96a32 32 0 0 1 0-64h256V95.936a32 32 0 0 1 32-32h256a32 32 0 0 1 32 32V192h256a32 32 0 1 1 0 64h-64v672a32 32 0 0 1-32 32H192a32 32 0 0 1-32-32V256zm448-64v-64H416v64h192zM224 896h576V256H224v640zm192-128a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32zm192 0a32 32 0 0 1-32-32V416a32 32 0 0 1 64 0v320a32 32 0 0 1-32 32z" data-darkreader-inline-fill="" style="--darkreader-inline-fill:#131313;"/>
-//   </g>
-//   </svg>`;
-//   commentMessage += `<svg data-time""class="icon-favorite" fill="#000000" height="20px" width="20px" version="1.1" id="XMLID_298_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-//   viewBox="0 0 24 24" xml:space="preserve">
-// <g id="favorite">
-//  <path d="M12,23.2l-0.6-0.5C8.7,20.7,0,13.5,0,7.3C0,3.8,2.9,1,6.5,1c2.2,0,4.3,1.1,5.5,2.9l0,0l0,0C13.2,2.1,15.3,1,17.5,1
-//    C21.1,1,24,3.8,24,7.3c0,6.3-8.7,13.4-11.4,15.5L12,23.2z M6.5,2.9C4,2.9,2,4.8,2,7.2c0,4.1,5.1,9.5,10,13.4
-//    c4.9-3.9,10-9.3,10-13.4c0-2.4-2-4.3-4.5-4.3c-1.6,0-3,0.8-3.8,2L12,7.6L10.3,5C9.5,3.7,8.1,2.9,6.5,2.9z"/>
-// </g>
-// </svg>`;
-
-//   commentBlock.innerHTML = commentMessage;
-// }
-
-//****/
-
 // Эта функция приобразовывает дату к читаемому виду
 
 function timeConverter(UNIX_timestamp) {
@@ -168,8 +130,6 @@ function timeConverter(UNIX_timestamp) {
   let time = date + " " + month + " " + year + " " + hour + ":" + min + ":" + sec;
   return time;
 }
-
-//**** Удаление коментария*/
 
 document.querySelector(".comments__list").addEventListener("click", (evt) => {
   if (evt.target.matches(".icon-delete")) {
@@ -186,5 +146,3 @@ function deleteComments(deleteButton) {
   deleteButton.closest("div").remove();
   console.log(comments);
 }
-
-//*
