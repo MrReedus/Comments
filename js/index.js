@@ -1,6 +1,6 @@
 let comments = [];
 const submitBtn = document.querySelector(".submit-btn");
-const form = document.querySelector(".form");
+const commentName = document.querySelector(".input-name");
 const commentText = document.querySelector(".textarea");
 
 submitBtn.addEventListener("click", (event) => {
@@ -9,16 +9,25 @@ submitBtn.addEventListener("click", (event) => {
 });
 
 commentText.addEventListener("keypress", (evt) => {
-  console.log(evt);
   if (evt.key === "Enter") {
     createFullComment();
   }
 });
 
+commentName.addEventListener("input", () => {
+  if (commentName.value != "") {
+    validationSucess(commentName);
+  }
+});
+
+commentText.addEventListener("input", () => {
+  if (commentText.value != "") {
+    validationSucess(commentText);
+  }
+});
+
 function createFullComment() {
-  const commentName = document.querySelector(".input-name");
   const commentDate = document.querySelector(".input-date");
-  const commentText = document.querySelector(".textarea");
   const inputs = document.querySelectorAll(".input");
   inputs.forEach((input) => {
     if (input.value === "") {
@@ -56,6 +65,13 @@ function validationError(outer) {
     newErrorMessage.innerText = "Поле обязательно для заполнения";
     newErrorMessage.classList.add("error-message");
     outer.insertAdjacentElement("afterend", newErrorMessage);
+  }
+}
+function validationSucess(outer) {
+  outer.classList.remove("error");
+  const errorMessage = outer.nextElementSibling;
+  if (errorMessage && errorMessage.classList.contains("error-message")) {
+    errorMessage.remove();
   }
 }
 
