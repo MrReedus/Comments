@@ -4,6 +4,9 @@ const commentName = document.querySelector(".input-name");
 const commentText = document.querySelector(".textarea");
 const commentDate = document.querySelector(".input-date");
 
+const currentDate = new Date().toISOString().slice(0, 10);
+commentDate.setAttribute("max", currentDate);
+
 submitBtn.addEventListener("click", (event) => {
   event.preventDefault();
   createFullComment();

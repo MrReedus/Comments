@@ -54,10 +54,11 @@
           <form action="" class="form">
             <div class="flex-wrapper popup__up-block">
               <label class="label label-name" for="">
-                Ваше имя
-                <input class="input input-name" type="text" placeholder="Введите ваше имя" />
+                Ваше имя <input class="input input-name" type="text" placeholder="Введите ваше имя" />/>
               </label>
-              <label class="label label-date" for=""> Дата <input class="input-date" type="date" /> </label>
+              <label class="label label-date" for="">
+                Дата <input class="input-date" type="date" max="${new Date().toISOString().split("T")[0]}" />
+              </label>
             </div>
             <div class="popup__down-block">
               <textarea class="input textarea" name="" id="" placeholder="Ваш коментарий..."></textarea>
